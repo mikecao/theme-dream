@@ -953,7 +953,10 @@ export default function Home() {
       <nav className="sticky top-0 z-20 rounded-sm border-b border-slate-200 bg-white px-4 py-3">
         <div className="flex w-full items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-sm bg-slate-900" />
+            <div className="relative grid h-8 w-8 place-items-center overflow-hidden rounded-sm border border-slate-300 bg-[linear-gradient(135deg,#1f2937_0%,#334155_60%,#0f172a_100%)] text-[11px] font-semibold text-white">
+              <span className="relative z-10">TD</span>
+              <span className="absolute -right-1 -top-1 h-3 w-3 bg-sky-400/70 blur-[2px]" />
+            </div>
             <div>
               <p className="text-sm font-semibold tracking-wide">Theme Dream</p>
               <p className="text-xs text-slate-500">
@@ -986,8 +989,8 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="grid w-full grid-cols-1 gap-4 p-4 lg:grid-cols-[1fr_420px]">
-        <section className="rounded-sm p-0">
+      <main className="grid w-full grid-cols-1 gap-4 p-4 lg:grid-cols-[1fr_320px] lg:gap-0 lg:p-0">
+        <section className="w-full max-w-[1400px] rounded-sm p-4 lg:justify-self-center lg:p-6">
           <div
             className="overflow-hidden rounded-sm [&_*]:rounded-none"
             style={{ fontFamily: "Segoe WPC, Segoe UI, sans-serif" }}
@@ -1183,7 +1186,7 @@ export default function Home() {
               </aside>
 
               <section
-                className="grid grid-rows-[35px_28px_1fr_132px]"
+                className="grid grid-rows-[35px_28px_1fr_176px]"
                 style={{
                   background: tokens["editorGroup.background"],
                   color: tokens["editor.foreground"],
@@ -1514,7 +1517,7 @@ export default function Home() {
                 </div>
 
                 <div
-                  className="border-t"
+                  className="overflow-hidden border-t"
                   style={{
                     background: tokens["panel.background"],
                     borderColor: tokens["panel.border"],
@@ -1555,7 +1558,7 @@ export default function Home() {
                       Terminal
                     </span>
                   </div>
-                  <div className="grid grid-cols-1 gap-4 px-3 py-2 text-[12px] md:grid-cols-3">
+                  <div className="grid grid-cols-1 gap-3 overflow-hidden px-3 py-2 text-[12px] md:grid-cols-3">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
                         <span
@@ -1755,7 +1758,7 @@ export default function Home() {
             </div>
 
             <div
-              className="flex h-6 items-center justify-between border-t px-2 text-[11px]"
+              className="relative z-10 flex h-6 items-center justify-between border-t px-2 text-[11px]"
               style={{
                 background: tokens["statusBar.background"],
                 color: tokens["statusBar.foreground"],
@@ -1813,7 +1816,7 @@ export default function Home() {
           </div>
         </section>
 
-        <aside className="max-h-[calc(100vh-96px)] overflow-auto rounded-sm p-4">
+        <aside className="h-[calc(100vh-61px)] overflow-auto border-l border-slate-200 bg-slate-50 p-4">
           <h2 className="text-lg font-semibold">Properties</h2>
           <p className="mb-2 text-sm text-slate-600">
             Expanded coverage for workbench, editor UI, diagnostics, terminal,
