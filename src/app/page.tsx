@@ -949,11 +949,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900 rounded-sm [&_*]:rounded-sm">
-      <nav className="sticky top-0 z-20 border-b border-slate-200 bg-white px-4 py-3">
+    <div className="min-h-screen bg-slate-100 text-slate-900">
+      <nav className="sticky top-0 z-20 rounded-sm border-b border-slate-200 bg-white px-4 py-3">
         <div className="flex w-full items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 bg-slate-900" />
+            <div className="h-8 w-8 rounded-sm bg-slate-900" />
             <div>
               <p className="text-sm font-semibold tracking-wide">Theme Dream</p>
               <p className="text-xs text-slate-500">
@@ -965,20 +965,20 @@ export default function Home() {
             <input
               value={themeName}
               onChange={(event) => setThemeName(event.target.value)}
-              className="w-56 border border-slate-300 bg-white px-3 py-1.5 text-sm outline-none ring-blue-500 transition focus:ring-2"
+              className="w-56 rounded-sm border border-slate-300 bg-white px-3 py-1.5 text-sm outline-none ring-blue-500 transition focus:ring-2"
               placeholder="Theme name"
             />
             <button
               type="button"
               onClick={() => setTokens(defaultTokens)}
-              className="border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              className="rounded-sm border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
             >
               Reset
             </button>
             <button
               type="button"
               onClick={exportTheme}
-              className="bg-slate-900 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-slate-700"
+              className="rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-slate-700"
             >
               Export JSON
             </button>
@@ -987,9 +987,9 @@ export default function Home() {
       </nav>
 
       <main className="grid w-full grid-cols-1 gap-4 p-4 lg:grid-cols-[1fr_420px]">
-        <section className="p-0">
+        <section className="rounded-sm p-0">
           <div
-            className="overflow-hidden [&_*]:!rounded-none"
+            className="overflow-hidden rounded-sm [&_*]:rounded-none"
             style={{ fontFamily: "Segoe WPC, Segoe UI, sans-serif" }}
           >
             <div
@@ -1003,9 +1003,9 @@ export default function Home() {
                 className="flex items-center gap-2"
                 style={{ color: tokens["menu.foreground"] }}
               >
-                <span className="h-2.5 w-2.5 !rounded-full bg-[#ff5f57]" />
-                <span className="h-2.5 w-2.5 !rounded-full bg-[#febc2e]" />
-                <span className="h-2.5 w-2.5 !rounded-full bg-[#28c840]" />
+                <span className="inline-block h-2.5 w-2.5 !rounded-full bg-[#ff5f57]" />
+                <span className="inline-block h-2.5 w-2.5 !rounded-full bg-[#febc2e]" />
+                <span className="inline-block h-2.5 w-2.5 !rounded-full bg-[#28c840]" />
                 <span className="ml-2 opacity-80">File</span>
                 <span
                   className="h-3 w-px"
@@ -1813,7 +1813,7 @@ export default function Home() {
           </div>
         </section>
 
-        <aside className="max-h-[calc(100vh-96px)] overflow-auto p-4">
+        <aside className="max-h-[calc(100vh-96px)] overflow-auto rounded-sm p-4">
           <h2 className="text-lg font-semibold">Properties</h2>
           <p className="mb-2 text-sm text-slate-600">
             Expanded coverage for workbench, editor UI, diagnostics, terminal,
@@ -1834,7 +1834,7 @@ export default function Home() {
                   {group.items.map((item) => (
                     <label
                       key={item.key}
-                      className="flex items-center gap-2 px-2 py-2"
+                      className="flex items-center gap-2 rounded-sm px-2 py-2"
                     >
                       <span className="w-40 text-[11px] font-medium text-slate-700">
                         {item.label}
@@ -1845,7 +1845,7 @@ export default function Home() {
                         onChange={(event) =>
                           updateToken(item.key, event.target.value)
                         }
-                        className="h-8 w-10 cursor-pointer bg-transparent"
+                        className="h-8 w-10 cursor-pointer rounded-sm bg-transparent"
                       />
                       <input
                         type="text"
@@ -1853,7 +1853,7 @@ export default function Home() {
                         onChange={(event) =>
                           updateToken(item.key, event.target.value)
                         }
-                        className="min-w-0 flex-1 border border-slate-300 bg-white px-2 py-1 text-xs font-mono text-slate-700 outline-none ring-blue-500 transition focus:ring-2"
+                        className="min-w-0 flex-1 rounded-sm border border-slate-300 bg-white px-2 py-1 text-xs font-mono text-slate-700 outline-none ring-blue-500 transition focus:ring-2"
                       />
                     </label>
                   ))}
