@@ -354,7 +354,7 @@ export default function Home() {
                   <span className="opacity-100">page.tsx</span>
                 </div>
 
-                <div className="grid grid-cols-[52px_1fr_90px]">
+                <div className="grid grid-cols-[52px_1fr]">
                   <div
                     className="border-r py-2 pr-2 text-right text-[12px] leading-6 opacity-50"
                     style={{ borderColor: `${tokens["sideBar.background"]}90` }}
@@ -446,36 +446,6 @@ export default function Home() {
                       ={" "}
                       <span style={{ color: tokens["syntax.number"] }}>12</span>
                       {";"}
-                    </div>
-                  </div>
-
-                  <div
-                    className="border-l px-3 py-2"
-                    style={{ borderColor: `${tokens["sideBar.background"]}90` }}
-                  >
-                    <div className="space-y-1.5 opacity-70">
-                      <div
-                        className="h-2"
-                        style={{
-                          background: `${tokens["terminal.ansiBlue"]}3d`,
-                        }}
-                      />
-                      <div
-                        className="h-1.5"
-                        style={{ background: `${tokens["syntax.keyword"]}40` }}
-                      />
-                      <div
-                        className="h-1.5"
-                        style={{ background: `${tokens["syntax.string"]}40` }}
-                      />
-                      <div
-                        className="h-1.5"
-                        style={{ background: `${tokens["syntax.comment"]}40` }}
-                      />
-                      <div
-                        className="h-1.5"
-                        style={{ background: `${tokens["syntax.function"]}40` }}
-                      />
                     </div>
                   </div>
                 </div>
