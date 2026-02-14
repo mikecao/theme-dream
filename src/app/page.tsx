@@ -949,9 +949,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900">
+    <div className="min-h-screen bg-slate-100 text-slate-900 rounded-sm [&_*]:rounded-sm">
       <nav className="sticky top-0 z-20 border-b border-slate-200 bg-white px-4 py-3">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3">
+        <div className="flex w-full items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 bg-slate-900" />
             <div>
@@ -986,10 +986,10 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="mx-auto grid max-w-[1600px] grid-cols-1 gap-4 p-4 lg:grid-cols-[1fr_420px]">
-        <section className="bg-white p-3">
+      <main className="grid w-full grid-cols-1 gap-4 p-4 lg:grid-cols-[1fr_420px]">
+        <section className="p-0">
           <div
-            className="overflow-hidden border border-slate-300"
+            className="overflow-hidden [&_*]:!rounded-none"
             style={{ fontFamily: "Segoe WPC, Segoe UI, sans-serif" }}
           >
             <div
@@ -1003,9 +1003,9 @@ export default function Home() {
                 className="flex items-center gap-2"
                 style={{ color: tokens["menu.foreground"] }}
               >
-                <span className="h-2.5 w-2.5 bg-[#ff5f57]" />
-                <span className="h-2.5 w-2.5 bg-[#febc2e]" />
-                <span className="h-2.5 w-2.5 bg-[#28c840]" />
+                <span className="h-2.5 w-2.5 !rounded-full bg-[#ff5f57]" />
+                <span className="h-2.5 w-2.5 !rounded-full bg-[#febc2e]" />
+                <span className="h-2.5 w-2.5 !rounded-full bg-[#28c840]" />
                 <span className="ml-2 opacity-80">File</span>
                 <span
                   className="h-3 w-px"
@@ -1813,7 +1813,7 @@ export default function Home() {
           </div>
         </section>
 
-        <aside className="max-h-[calc(100vh-96px)] overflow-auto bg-white p-4">
+        <aside className="max-h-[calc(100vh-96px)] overflow-auto p-4">
           <h2 className="text-lg font-semibold">Properties</h2>
           <p className="mb-2 text-sm text-slate-600">
             Expanded coverage for workbench, editor UI, diagnostics, terminal,
@@ -1834,7 +1834,7 @@ export default function Home() {
                   {group.items.map((item) => (
                     <label
                       key={item.key}
-                      className="flex items-center gap-2 bg-slate-50 px-2 py-2"
+                      className="flex items-center gap-2 px-2 py-2"
                     >
                       <span className="w-40 text-[11px] font-medium text-slate-700">
                         {item.label}
@@ -1845,7 +1845,7 @@ export default function Home() {
                         onChange={(event) =>
                           updateToken(item.key, event.target.value)
                         }
-                        className="h-8 w-10 cursor-pointer border border-slate-300 bg-transparent"
+                        className="h-8 w-10 cursor-pointer bg-transparent"
                       />
                       <input
                         type="text"
