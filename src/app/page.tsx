@@ -3,51 +3,171 @@
 import { useMemo, useState } from "react";
 
 const defaultTokens = {
+  foreground: "#cccccc",
+  descriptionForeground: "#9d9d9d",
+  errorForeground: "#f48771",
+  focusBorder: "#007fd4",
+  "menu.foreground": "#cccccc",
+  "menu.separatorBackground": "#606060",
+  "actionBar.toggledBackground": "#383a49",
+  "textBlockQuote.background": "#222222",
+  "textBlockQuote.border": "#444444",
+  "textLink.foreground": "#3794ff",
+  "textPreformat.foreground": "#d7ba7d",
+  "walkThrough.embeddedEditorBackground": "#00000050",
+  "settings.headerForeground": "#e7e7e7",
+  "settings.focusedRowBackground": "#073655",
+  "welcomePage.buttonHoverBackground": "#1177bb",
   "titleBar.activeBackground": "#181818",
   "titleBar.activeForeground": "#cccccc",
+  "titleBar.inactiveBackground": "#1a1a1a",
+  "titleBar.inactiveForeground": "#9d9d9d",
   "statusBar.background": "#007acc",
   "statusBar.foreground": "#ffffff",
+  "statusBar.debuggingBackground": "#cc6633",
+  "statusBar.debuggingForeground": "#ffffff",
+  "statusBar.debuggingBorder": "#00000000",
+  "statusBar.noFolderBackground": "#68217a",
+  "statusBar.border": "#2b2b2b",
+  "statusBarItem.remoteBackground": "#16825d",
+  "statusBarItem.remoteForeground": "#ffffff",
   "badge.background": "#4d4d4d",
   "badge.foreground": "#ffffff",
   "activityBar.background": "#181818",
   "activityBar.foreground": "#d4d4d4",
   "activityBar.activeBorder": "#0078d4",
+  "activityBarBadge.background": "#007acc",
+  "activityBarBadge.foreground": "#ffffff",
   "sideBar.background": "#1f1f1f",
   "sideBar.foreground": "#cccccc",
   "sideBar.border": "#2b2b2b",
+  "sideBar.dropBackground": "#383b3d",
   "sideBarTitle.foreground": "#cccccc",
   "sideBarSectionHeader.background": "#252526",
   "sideBarSectionHeader.foreground": "#cccccc",
+  "sideBarSectionHeader.border": "#3b3b3b",
   "list.activeSelectionBackground": "#04395e",
   "list.activeSelectionForeground": "#ffffff",
   "list.inactiveSelectionBackground": "#37373d",
+  "list.inactiveSelectionForeground": "#cccccc",
   "list.hoverBackground": "#2a2d2e",
+  "list.hoverForeground": "#ffffff",
+  "list.focusBackground": "#073655",
+  "list.focusForeground": "#ffffff",
+  "list.highlightForeground": "#2aaaff",
+  "list.warningForeground": "#cca700",
+  "list.dropBackground": "#383b3d",
+  "tree.indentGuidesStroke": "#585858",
   "editorGroupHeader.tabsBackground": "#1f1f1f",
+  "editorGroup.border": "#444444",
+  "editorGroup.background": "#1e1e1e",
   "tab.activeBackground": "#1e1e1e",
   "tab.activeForeground": "#ffffff",
+  "tab.activeBorder": "#0078d4",
+  "tab.border": "#252526",
   "tab.inactiveBackground": "#2d2d2d",
   "tab.inactiveForeground": "#969696",
+  "tab.hoverBackground": "#1f1f1f",
+  "tab.unfocusedHoverBackground": "#2a2d2e",
+  "tab.lastPinnedBorder": "#3b3b3b",
   "panel.background": "#181818",
   "panel.border": "#3c3c3c",
+  "panelSectionHeader.background": "#181818",
+  "panelInput.border": "#80808059",
+  "panelTitle.activeBorder": "#0078d4",
   "panelTitle.activeForeground": "#e7e7e7",
   "panelTitle.inactiveForeground": "#969696",
+  "peekViewEditor.background": "#001f33",
+  "peekViewEditor.matchHighlightBackground": "#ff8f0099",
+  "peekViewResult.background": "#252526",
+  "diffEditor.insertedTextBackground": "#9ccc2c33",
+  "multiDiffEditor.headerBackground": "#2d2d30",
+  "gitDecoration.ignoredResourceForeground": "#8c8c8c",
+  "debugToolBar.background": "#333333",
+  "breadcrumbPicker.background": "#252526",
+  "editorWidget.background": "#252526",
+  "editorHoverWidget.background": "#252526",
+  "editorHoverWidget.border": "#454545",
+  "editorHoverWidget.highlightForeground": "#2aaaff",
+  "editorSuggestWidget.background": "#252526",
+  "editorSuggestWidget.border": "#454545",
+  "editorSuggestWidget.selectedBackground": "#04395e",
+  "editorMarkerNavigation.background": "#2d2d30",
+  "editorInlayHint.background": "#2e2e2e",
+  "editorInlayHint.foreground": "#969696",
   "editor.background": "#1e1e1e",
   "editor.foreground": "#d4d4d4",
+  "editor.inactiveSelectionBackground": "#3a3d41",
   "editorGutter.background": "#1e1e1e",
+  "editorGutter.addedBackground": "#487e02",
+  "editorGutter.deletedBackground": "#f14c4c",
+  "editorGutter.modifiedBackground": "#0c7d9d",
   "editorLineNumber.foreground": "#858585",
   "editorLineNumber.activeForeground": "#c6c6c6",
+  "editorCursor.background": "#000000",
   "editorCursor.foreground": "#aeafad",
   "editor.selectionBackground": "#264f78",
+  "editor.selectionHighlightBorder": "#add6ff66",
   "editor.selectionHighlightBackground": "#add6ff26",
+  "editor.findMatchBackground": "#515c6a",
+  "editor.findMatchHighlightBackground": "#ea5c0055",
+  "editor.findMatchBorder": "#457dff",
+  "editor.wordHighlightBackground": "#575757b8",
+  "editor.wordHighlightStrongBackground": "#004972b8",
+  "editor.wordHighlightBorder": "#c8c8c859",
+  "editor.wordHighlightStrongBorder": "#c8c8c859",
   "editor.lineHighlightBackground": "#2a2d2e66",
   "editorIndentGuide.background1": "#404040",
+  "editorIndentGuide.activeBackground1": "#707070",
+  "editorBracketHighlight.foreground1": "#ffd700",
+  "editorBracketHighlight.foreground2": "#da70d6",
+  "editorBracketHighlight.foreground3": "#179fff",
+  "editorBracketMatch.background": "#0064001a",
+  "editorBracketMatch.border": "#888888",
+  "editorOverviewRuler.border": "#7f7f7f4d",
+  "editorOverviewRuler.addedBackground": "#81b88b",
+  "editorOverviewRuler.deletedBackground": "#c74e39",
+  "editorOverviewRuler.modifiedBackground": "#1b81a8",
+  "editorRuler.foreground": "#5a5a5a",
   "editorWhitespace.foreground": "#40404080",
   "editorError.foreground": "#f14c4c",
   "editorWarning.foreground": "#cca700",
+  "terminal.background": "#1e1e1e",
+  "terminal.foreground": "#cccccc",
+  "terminal.border": "#80808059",
+  "terminal.selectionBackground": "#264f78",
+  "terminal.ansiBlack": "#000000",
   "terminal.ansiBlue": "#569cd6",
+  "terminal.ansiCyan": "#29b8db",
   "terminal.ansiGreen": "#6a9955",
+  "terminal.ansiMagenta": "#d670d6",
+  "terminal.ansiWhite": "#e5e5e5",
   "terminal.ansiYellow": "#dcdcaa",
   "terminal.ansiRed": "#f44747",
+  "terminal.ansiBrightBlack": "#666666",
+  "terminal.ansiBrightBlue": "#4fc1ff",
+  "terminal.ansiBrightCyan": "#4cd1e0",
+  "terminal.ansiBrightGreen": "#b5cea8",
+  "terminal.ansiBrightMagenta": "#c586c0",
+  "terminal.ansiBrightWhite": "#ffffff",
+  "terminal.ansiBrightYellow": "#f9f1a5",
+  "terminal.ansiBrightRed": "#ff6a6a",
+  "minimapGutter.addedBackground": "#81b88b",
+  "minimapGutter.deletedBackground": "#c74e39",
+  "minimapGutter.modifiedBackground": "#1b81a8",
+  "scrollbar.shadow": "#000000",
+  "scrollbarSlider.background": "#79797966",
+  "scrollbarSlider.hoverBackground": "#646464b3",
+  "scrollbarSlider.activeBackground": "#bfbfbf66",
+  "input.background": "#3c3c3c",
+  "input.foreground": "#cccccc",
+  "input.placeholderForeground": "#989898",
+  "dropdown.background": "#3c3c3c",
+  "dropdown.border": "#3c3c3c",
+  "checkbox.border": "#6b6b6b",
+  "button.background": "#0e639c",
+  "button.secondaryBackground": "#3a3d41",
+  "button.secondaryForeground": "#ffffff",
   "syntax.comment": "#6a9955",
   "syntax.keyword": "#c586c0",
   "syntax.string": "#ce9178",
@@ -94,14 +214,54 @@ type CodeLine = {
 
 const groups: TokenGroup[] = [
   {
+    title: "Global, Menu & Text",
+    items: [
+      { key: "foreground", label: "Foreground" },
+      { key: "descriptionForeground", label: "Description" },
+      { key: "errorForeground", label: "Error Text" },
+      { key: "focusBorder", label: "Focus Border" },
+      { key: "menu.foreground", label: "Menu Text" },
+      { key: "menu.separatorBackground", label: "Menu Separator" },
+      { key: "actionBar.toggledBackground", label: "Action Toggled" },
+      { key: "textBlockQuote.background", label: "Quote BG" },
+      { key: "textBlockQuote.border", label: "Quote Border" },
+      { key: "textLink.foreground", label: "Text Link" },
+      { key: "textPreformat.foreground", label: "Preformat" },
+      {
+        key: "walkThrough.embeddedEditorBackground",
+        label: "Walkthrough BG",
+      },
+      { key: "settings.headerForeground", label: "Settings Header" },
+      { key: "settings.focusedRowBackground", label: "Settings Focus" },
+      { key: "welcomePage.buttonHoverBackground", label: "Welcome Hover" },
+    ],
+  },
+  {
     title: "Window & Status",
     items: [
       { key: "titleBar.activeBackground", label: "Title Bar BG" },
       { key: "titleBar.activeForeground", label: "Title Bar FG" },
+      { key: "titleBar.inactiveBackground", label: "Title Inactive BG" },
+      { key: "titleBar.inactiveForeground", label: "Title Inactive FG" },
       { key: "statusBar.background", label: "Status Bar BG" },
       { key: "statusBar.foreground", label: "Status Bar FG" },
+      {
+        key: "statusBar.debuggingBackground",
+        label: "Status Debug BG",
+      },
+      {
+        key: "statusBar.debuggingForeground",
+        label: "Status Debug FG",
+      },
+      { key: "statusBar.debuggingBorder", label: "Status Debug Border" },
+      { key: "statusBar.noFolderBackground", label: "Status NoFolder" },
+      { key: "statusBar.border", label: "Status Border" },
+      { key: "statusBarItem.remoteBackground", label: "Remote BG" },
+      { key: "statusBarItem.remoteForeground", label: "Remote FG" },
       { key: "badge.background", label: "Badge BG" },
       { key: "badge.foreground", label: "Badge FG" },
+      { key: "activityBarBadge.background", label: "Activity Badge BG" },
+      { key: "activityBarBadge.foreground", label: "Activity Badge FG" },
     ],
   },
   {
@@ -113,6 +273,7 @@ const groups: TokenGroup[] = [
       { key: "sideBar.background", label: "Sidebar BG" },
       { key: "sideBar.foreground", label: "Sidebar FG" },
       { key: "sideBar.border", label: "Sidebar Border" },
+      { key: "sideBar.dropBackground", label: "Sidebar Drop" },
       { key: "sideBarTitle.foreground", label: "Sidebar Title" },
       {
         key: "sideBarSectionHeader.background",
@@ -122,66 +283,239 @@ const groups: TokenGroup[] = [
         key: "sideBarSectionHeader.foreground",
         label: "Section Header FG",
       },
+      {
+        key: "sideBarSectionHeader.border",
+        label: "Section Header Border",
+      },
+      { key: "tree.indentGuidesStroke", label: "Tree Indent" },
+    ],
+  },
+  {
+    title: "List States",
+    items: [
       { key: "list.activeSelectionBackground", label: "List Active BG" },
       { key: "list.activeSelectionForeground", label: "List Active FG" },
       {
         key: "list.inactiveSelectionBackground",
         label: "List Inactive BG",
       },
+      {
+        key: "list.inactiveSelectionForeground",
+        label: "List Inactive FG",
+      },
       { key: "list.hoverBackground", label: "List Hover BG" },
+      { key: "list.hoverForeground", label: "List Hover FG" },
+      { key: "list.focusBackground", label: "List Focus BG" },
+      { key: "list.focusForeground", label: "List Focus FG" },
+      { key: "list.highlightForeground", label: "List Highlight" },
+      { key: "list.warningForeground", label: "List Warning" },
+      { key: "list.dropBackground", label: "List Drop" },
     ],
   },
   {
-    title: "Tabs & Panel",
+    title: "Tabs & Editor Groups",
     items: [
       {
         key: "editorGroupHeader.tabsBackground",
         label: "Tabs Strip BG",
       },
+      { key: "editorGroup.border", label: "Group Border" },
+      { key: "editorGroup.background", label: "Group BG" },
       { key: "tab.activeBackground", label: "Active Tab BG" },
       { key: "tab.activeForeground", label: "Active Tab FG" },
+      { key: "tab.activeBorder", label: "Active Tab Border" },
+      { key: "tab.border", label: "Tab Border" },
       { key: "tab.inactiveBackground", label: "Inactive Tab BG" },
       { key: "tab.inactiveForeground", label: "Inactive Tab FG" },
+      { key: "tab.hoverBackground", label: "Tab Hover BG" },
+      { key: "tab.unfocusedHoverBackground", label: "Tab Unfocused Hover" },
+      { key: "tab.lastPinnedBorder", label: "Last Pinned Border" },
+    ],
+  },
+  {
+    title: "Panel, Peek & Diff",
+    items: [
       { key: "panel.background", label: "Panel BG" },
       { key: "panel.border", label: "Panel Border" },
+      { key: "panelSectionHeader.background", label: "Section Header BG" },
+      { key: "panelInput.border", label: "Panel Input Border" },
+      { key: "panelTitle.activeBorder", label: "Active Title Border" },
       { key: "panelTitle.activeForeground", label: "Panel Active Title" },
       {
         key: "panelTitle.inactiveForeground",
         label: "Panel Inactive Title",
       },
+      { key: "peekViewEditor.background", label: "Peek Editor BG" },
+      {
+        key: "peekViewEditor.matchHighlightBackground",
+        label: "Peek Match",
+      },
+      { key: "peekViewResult.background", label: "Peek Result BG" },
+      { key: "diffEditor.insertedTextBackground", label: "Diff Inserted" },
+      { key: "multiDiffEditor.headerBackground", label: "MultiDiff Header" },
+      {
+        key: "gitDecoration.ignoredResourceForeground",
+        label: "Git Ignored",
+      },
+      { key: "debugToolBar.background", label: "Debug Toolbar" },
+      { key: "breadcrumbPicker.background", label: "Breadcrumb Picker" },
     ],
   },
   {
-    title: "Editor UI",
+    title: "Editor Core",
     items: [
       { key: "editor.background", label: "Editor BG" },
       { key: "editor.foreground", label: "Editor FG" },
+      {
+        key: "editor.inactiveSelectionBackground",
+        label: "Inactive Selection",
+      },
       { key: "editorGutter.background", label: "Gutter BG" },
+      { key: "editorGutter.addedBackground", label: "Gutter Added" },
+      { key: "editorGutter.deletedBackground", label: "Gutter Deleted" },
+      { key: "editorGutter.modifiedBackground", label: "Gutter Modified" },
       { key: "editorLineNumber.foreground", label: "Line Number" },
       { key: "editorLineNumber.activeForeground", label: "Active Line #" },
+      { key: "editorCursor.background", label: "Cursor BG" },
       { key: "editorCursor.foreground", label: "Cursor" },
       { key: "editor.selectionBackground", label: "Selection BG" },
       {
         key: "editor.selectionHighlightBackground",
         label: "Selection Match",
       },
+      {
+        key: "editor.selectionHighlightBorder",
+        label: "Selection Border",
+      },
       { key: "editor.lineHighlightBackground", label: "Line Highlight" },
       {
         key: "editorIndentGuide.background1",
         label: "Indent Guides",
       },
+      {
+        key: "editorIndentGuide.activeBackground1",
+        label: "Active Indent",
+      },
+      { key: "editorRuler.foreground", label: "Ruler" },
       { key: "editorWhitespace.foreground", label: "Whitespace" },
     ],
   },
   {
-    title: "Diagnostics & Terminal",
+    title: "Editor Search, Brackets & Overview",
     items: [
+      { key: "editor.findMatchBackground", label: "Find Match" },
+      { key: "editor.findMatchHighlightBackground", label: "Find Others" },
+      { key: "editor.findMatchBorder", label: "Find Border" },
+      { key: "editor.wordHighlightBackground", label: "Word Highlight" },
+      {
+        key: "editor.wordHighlightStrongBackground",
+        label: "Word Highlight Strong",
+      },
+      { key: "editor.wordHighlightBorder", label: "Word Border" },
+      {
+        key: "editor.wordHighlightStrongBorder",
+        label: "Word Strong Border",
+      },
+      {
+        key: "editorBracketHighlight.foreground1",
+        label: "Bracket Color 1",
+      },
+      {
+        key: "editorBracketHighlight.foreground2",
+        label: "Bracket Color 2",
+      },
+      {
+        key: "editorBracketHighlight.foreground3",
+        label: "Bracket Color 3",
+      },
+      { key: "editorBracketMatch.background", label: "Bracket Match BG" },
+      { key: "editorBracketMatch.border", label: "Bracket Match Border" },
+      {
+        key: "editorOverviewRuler.addedBackground",
+        label: "Overview Added",
+      },
+      {
+        key: "editorOverviewRuler.deletedBackground",
+        label: "Overview Deleted",
+      },
+      {
+        key: "editorOverviewRuler.modifiedBackground",
+        label: "Overview Modified",
+      },
+      { key: "editorOverviewRuler.border", label: "Overview Border" },
+      {
+        key: "minimapGutter.addedBackground",
+        label: "Minimap Added",
+      },
+      {
+        key: "minimapGutter.deletedBackground",
+        label: "Minimap Deleted",
+      },
+      {
+        key: "minimapGutter.modifiedBackground",
+        label: "Minimap Modified",
+      },
       { key: "editorError.foreground", label: "Error" },
       { key: "editorWarning.foreground", label: "Warning" },
+    ],
+  },
+  {
+    title: "Widgets & Inputs",
+    items: [
+      { key: "editorWidget.background", label: "Editor Widget" },
+      { key: "editorHoverWidget.background", label: "Hover BG" },
+      { key: "editorHoverWidget.border", label: "Hover Border" },
+      {
+        key: "editorHoverWidget.highlightForeground",
+        label: "Hover Highlight",
+      },
+      { key: "editorSuggestWidget.background", label: "Suggest BG" },
+      { key: "editorSuggestWidget.border", label: "Suggest Border" },
+      {
+        key: "editorSuggestWidget.selectedBackground",
+        label: "Suggest Selected",
+      },
+      { key: "editorMarkerNavigation.background", label: "Marker Nav BG" },
+      { key: "editorInlayHint.background", label: "Inlay Hint BG" },
+      { key: "editorInlayHint.foreground", label: "Inlay Hint FG" },
+      { key: "input.background", label: "Input BG" },
+      { key: "input.foreground", label: "Input FG" },
+      { key: "input.placeholderForeground", label: "Input Placeholder" },
+      { key: "dropdown.background", label: "Dropdown BG" },
+      { key: "dropdown.border", label: "Dropdown Border" },
+      { key: "checkbox.border", label: "Checkbox Border" },
+      { key: "button.background", label: "Button BG" },
+      { key: "button.secondaryBackground", label: "Secondary Button BG" },
+      { key: "button.secondaryForeground", label: "Secondary Button FG" },
+    ],
+  },
+  {
+    title: "Terminal & Scrollbars",
+    items: [
+      { key: "terminal.background", label: "Terminal BG" },
+      { key: "terminal.foreground", label: "Terminal FG" },
+      { key: "terminal.border", label: "Terminal Border" },
+      { key: "terminal.selectionBackground", label: "Terminal Selection" },
+      { key: "terminal.ansiBlack", label: "ANSI Black" },
       { key: "terminal.ansiBlue", label: "Terminal Blue" },
+      { key: "terminal.ansiCyan", label: "ANSI Cyan" },
       { key: "terminal.ansiGreen", label: "Terminal Green" },
+      { key: "terminal.ansiMagenta", label: "ANSI Magenta" },
+      { key: "terminal.ansiWhite", label: "ANSI White" },
       { key: "terminal.ansiYellow", label: "Terminal Yellow" },
       { key: "terminal.ansiRed", label: "Terminal Red" },
+      { key: "terminal.ansiBrightBlack", label: "Bright Black" },
+      { key: "terminal.ansiBrightBlue", label: "Bright Blue" },
+      { key: "terminal.ansiBrightCyan", label: "Bright Cyan" },
+      { key: "terminal.ansiBrightGreen", label: "Bright Green" },
+      { key: "terminal.ansiBrightMagenta", label: "Bright Magenta" },
+      { key: "terminal.ansiBrightWhite", label: "Bright White" },
+      { key: "terminal.ansiBrightYellow", label: "Bright Yellow" },
+      { key: "terminal.ansiBrightRed", label: "Bright Red" },
+      { key: "scrollbar.shadow", label: "Scrollbar Shadow" },
+      { key: "scrollbarSlider.background", label: "Slider BG" },
+      { key: "scrollbarSlider.hoverBackground", label: "Slider Hover" },
+      { key: "scrollbarSlider.activeBackground", label: "Slider Active" },
     ],
   },
   {
@@ -665,13 +999,24 @@ export default function Home() {
                 color: tokens["titleBar.activeForeground"],
               }}
             >
-              <div className="flex items-center gap-2">
+              <div
+                className="flex items-center gap-2"
+                style={{ color: tokens["menu.foreground"] }}
+              >
                 <span className="h-2.5 w-2.5 bg-[#ff5f57]" />
                 <span className="h-2.5 w-2.5 bg-[#febc2e]" />
                 <span className="h-2.5 w-2.5 bg-[#28c840]" />
                 <span className="ml-2 opacity-80">File</span>
+                <span
+                  className="h-3 w-px"
+                  style={{ background: tokens["menu.separatorBackground"] }}
+                />
                 <span className="opacity-80">Edit</span>
                 <span className="opacity-80">Selection</span>
+                <span
+                  className="h-3 w-px"
+                  style={{ background: tokens["menu.separatorBackground"] }}
+                />
                 <span className="opacity-80">View</span>
                 <span className="opacity-80">Go</span>
                 <span className="opacity-80">Run</span>
@@ -705,7 +1050,18 @@ export default function Home() {
                 <span className="codicon codicon-search mt-4 text-[22px] opacity-70" />
                 <span className="codicon codicon-source-control mt-4 text-[22px] opacity-70" />
                 <span className="codicon codicon-debug-alt mt-4 text-[22px] opacity-70" />
-                <span className="codicon codicon-extensions mt-4 text-[22px] opacity-70" />
+                <div className="relative mt-4">
+                  <span className="codicon codicon-extensions text-[22px] opacity-70" />
+                  <span
+                    className="absolute -right-1 -top-1 inline-flex h-3 min-w-3 items-center justify-center px-0.5 text-[9px]"
+                    style={{
+                      background: tokens["activityBarBadge.background"],
+                      color: tokens["activityBarBadge.foreground"],
+                    }}
+                  >
+                    2
+                  </span>
+                </div>
                 <span className="codicon codicon-account mt-auto mb-4 text-[20px] opacity-75" />
               </aside>
 
@@ -755,6 +1111,7 @@ export default function Home() {
                     className="mb-2 flex items-center gap-2 px-2 py-1 text-[12px]"
                     style={{
                       background: tokens["list.inactiveSelectionBackground"],
+                      color: tokens["list.inactiveSelectionForeground"],
                     }}
                   >
                     <span className="codicon codicon-file-code" />
@@ -764,21 +1121,43 @@ export default function Home() {
                     Theme Dream
                   </p>
                   <div className="space-y-0.5">
-                    <div className="flex items-center gap-2 px-2 py-1">
+                    <div
+                      className="flex items-center gap-2 px-2 py-1"
+                      style={{
+                        background: tokens["list.focusBackground"],
+                        color: tokens["list.focusForeground"],
+                      }}
+                    >
                       <span className="codicon codicon-chevron-down text-[10px] opacity-70" />
                       <span className="codicon codicon-folder text-[14px]" />
                       <span>src</span>
                     </div>
                     <div
                       className="flex items-center gap-2 px-2 py-1"
-                      style={{ background: tokens["list.hoverBackground"] }}
+                      style={{
+                        background: tokens["list.hoverBackground"],
+                        color: tokens["list.hoverForeground"],
+                      }}
                     >
-                      <span className="ml-4 codicon codicon-chevron-down text-[10px] opacity-70" />
+                      <span
+                        className="ml-4 border-l pl-1 codicon codicon-chevron-down text-[10px] opacity-70"
+                        style={{
+                          borderColor: tokens["tree.indentGuidesStroke"],
+                        }}
+                      />
                       <span className="codicon codicon-folder text-[14px]" />
                       <span>app</span>
                     </div>
-                    <div className="flex items-center gap-2 px-2 py-1">
-                      <span className="ml-8 codicon codicon-file-code text-[14px]" />
+                    <div
+                      className="flex items-center gap-2 px-2 py-1"
+                      style={{ color: tokens["list.highlightForeground"] }}
+                    >
+                      <span
+                        className="ml-8 border-l pl-1 codicon codicon-file-code text-[14px]"
+                        style={{
+                          borderColor: tokens["tree.indentGuidesStroke"],
+                        }}
+                      />
                       <span>page.tsx</span>
                     </div>
                     <div className="flex items-center gap-2 px-2 py-1 opacity-75">
@@ -789,6 +1168,16 @@ export default function Home() {
                       <span className="ml-8 codicon codicon-file text-[14px]" />
                       <span>layout.tsx</span>
                     </div>
+                    <div
+                      className="mt-1 flex items-center gap-2 px-2 py-1"
+                      style={{ background: tokens["list.dropBackground"] }}
+                    >
+                      <span
+                        className="codicon codicon-warning"
+                        style={{ color: tokens["list.warningForeground"] }}
+                      />
+                      <span>drop target</span>
+                    </div>
                   </div>
                 </div>
               </aside>
@@ -796,23 +1185,24 @@ export default function Home() {
               <section
                 className="grid grid-rows-[35px_28px_1fr_132px]"
                 style={{
-                  background: tokens["editor.background"],
+                  background: tokens["editorGroup.background"],
                   color: tokens["editor.foreground"],
                 }}
               >
                 <div
                   className="flex border-b"
                   style={{
-                    borderColor: tokens["sideBar.border"],
+                    borderColor: tokens["editorGroup.border"],
                     background: tokens["editorGroupHeader.tabsBackground"],
                   }}
                 >
                   <div
-                    className="flex h-full items-center gap-2 border-r px-3 text-[12px]"
+                    className="flex h-full items-center gap-2 border-r border-t-2 px-3 text-[12px]"
                     style={{
                       background: tokens["tab.activeBackground"],
                       color: tokens["tab.activeForeground"],
-                      borderColor: tokens["sideBar.border"],
+                      borderColor: tokens["tab.border"],
+                      borderTopColor: tokens["tab.activeBorder"],
                     }}
                   >
                     <span className="codicon codicon-file-code text-[14px]" />
@@ -824,17 +1214,34 @@ export default function Home() {
                     style={{
                       background: tokens["tab.inactiveBackground"],
                       color: tokens["tab.inactiveForeground"],
-                      borderColor: tokens["sideBar.border"],
+                      borderColor: tokens["tab.border"],
                     }}
                   >
                     <span className="codicon codicon-file-code text-[14px]" />
                     <span>tokens.ts</span>
                   </div>
+                  <div
+                    className="flex h-full items-center border-r px-3 text-[12px]"
+                    style={{
+                      background: tokens["tab.hoverBackground"],
+                      borderColor: tokens["tab.lastPinnedBorder"],
+                    }}
+                  >
+                    hover.ts
+                  </div>
+                  <div
+                    className="flex h-full items-center px-3 text-[12px]"
+                    style={{
+                      background: tokens["tab.unfocusedHoverBackground"],
+                    }}
+                  >
+                    unfocused.ts
+                  </div>
                 </div>
 
                 <div
                   className="flex items-center gap-1 border-b px-3 text-[11px] opacity-80"
-                  style={{ borderColor: tokens["sideBar.border"] }}
+                  style={{ borderColor: tokens["editorGroup.border"] }}
                 >
                   <span className="codicon codicon-home" />
                   <span className="codicon codicon-chevron-right text-[10px]" />
@@ -843,33 +1250,72 @@ export default function Home() {
                   <span>app</span>
                   <span className="codicon codicon-chevron-right text-[10px]" />
                   <span className="opacity-100">theme-preview.tsx</span>
+                  <span
+                    className="ml-2 px-1 py-0.5 text-[10px]"
+                    style={{
+                      background: tokens["breadcrumbPicker.background"],
+                    }}
+                  >
+                    picker
+                  </span>
                 </div>
 
                 <div className="grid grid-cols-[56px_1fr]">
                   <div
                     className="border-r py-2 pr-2 text-right text-[12px] leading-6"
                     style={{
-                      borderColor: tokens["sideBar.border"],
+                      borderColor: tokens["editorGroup.border"],
                       background: tokens["editorGutter.background"],
                     }}
                   >
                     {codeLines.map((line) => (
-                      <p
+                      <div
                         key={line.number}
+                        className="relative"
                         style={{
                           color: line.active
                             ? tokens["editorLineNumber.activeForeground"]
                             : tokens["editorLineNumber.foreground"],
                         }}
                       >
-                        {line.number}
-                      </p>
+                        {line.number === 9 ? (
+                          <span
+                            className="absolute left-0 top-1.5 h-3 w-0.5"
+                            style={{
+                              background:
+                                tokens["editorGutter.addedBackground"],
+                            }}
+                          />
+                        ) : null}
+                        {line.number === 10 ? (
+                          <span
+                            className="absolute left-0 top-1.5 h-3 w-0.5"
+                            style={{
+                              background:
+                                tokens["editorGutter.modifiedBackground"],
+                            }}
+                          />
+                        ) : null}
+                        {line.number === 11 ? (
+                          <span
+                            className="absolute left-0 top-1.5 h-3 w-0.5"
+                            style={{
+                              background:
+                                tokens["editorGutter.deletedBackground"],
+                            }}
+                          />
+                        ) : null}
+                        <p>{line.number}</p>
+                      </div>
                     ))}
                   </div>
 
                   <div
                     className="relative py-2 pr-2 text-[13px] leading-6"
-                    style={{ fontFamily: editorFontFamily }}
+                    style={{
+                      fontFamily: editorFontFamily,
+                      background: tokens["editor.background"],
+                    }}
                   >
                     <span
                       className="pointer-events-none absolute bottom-2 left-[32px] top-2 w-px opacity-50"
@@ -891,7 +1337,25 @@ export default function Home() {
                         style={{
                           background: line.active
                             ? tokens["editor.lineHighlightBackground"]
-                            : "transparent",
+                            : line.number === 10
+                              ? tokens["editor.findMatchBackground"]
+                              : line.number === 12
+                                ? tokens["editor.findMatchHighlightBackground"]
+                                : line.number === 14
+                                  ? tokens["editor.wordHighlightBackground"]
+                                  : line.number === 15
+                                    ? tokens[
+                                        "editor.wordHighlightStrongBackground"
+                                      ]
+                                    : "transparent",
+                          border:
+                            line.number === 10
+                              ? `1px solid ${tokens["editor.findMatchBorder"]}`
+                              : line.number === 14
+                                ? `1px solid ${tokens["editor.wordHighlightBorder"]}`
+                                : line.number === 15
+                                  ? `1px solid ${tokens["editor.wordHighlightStrongBorder"]}`
+                                  : "none",
                         }}
                       >
                         {line.chunks.map((chunk, index) => (
@@ -924,6 +1388,128 @@ export default function Home() {
                         ) : null}
                       </div>
                     ))}
+
+                    <div className="mt-1 flex items-center gap-1 px-3 text-[11px]">
+                      <span
+                        style={{
+                          color: tokens["editorBracketHighlight.foreground1"],
+                        }}
+                      >
+                        (
+                      </span>
+                      <span
+                        style={{
+                          color: tokens["editorBracketHighlight.foreground2"],
+                        }}
+                      >
+                        [
+                      </span>
+                      <span
+                        style={{
+                          color: tokens["editorBracketHighlight.foreground3"],
+                        }}
+                      >
+                        {"{"}
+                      </span>
+                      <span
+                        className="px-1"
+                        style={{
+                          background: tokens["editorBracketMatch.background"],
+                          border: `1px solid ${tokens["editorBracketMatch.border"]}`,
+                        }}
+                      >
+                        matched pair
+                      </span>
+                      <span
+                        style={{
+                          color: tokens["editorBracketHighlight.foreground3"],
+                        }}
+                      >
+                        {"}"}
+                      </span>
+                      <span
+                        style={{
+                          color: tokens["editorBracketHighlight.foreground2"],
+                        }}
+                      >
+                        ]
+                      </span>
+                      <span
+                        style={{
+                          color: tokens["editorBracketHighlight.foreground1"],
+                        }}
+                      >
+                        )
+                      </span>
+                    </div>
+
+                    <div
+                      className="pointer-events-none absolute bottom-2 right-0.5 top-2 w-2 border-l"
+                      style={{
+                        borderColor: tokens["editorOverviewRuler.border"],
+                        background: tokens["scrollbar.shadow"],
+                      }}
+                    >
+                      <span
+                        className="absolute left-0 top-8 h-1 w-full"
+                        style={{
+                          background:
+                            tokens["editorOverviewRuler.addedBackground"],
+                        }}
+                      />
+                      <span
+                        className="absolute left-0 top-14 h-1 w-full"
+                        style={{
+                          background:
+                            tokens["editorOverviewRuler.modifiedBackground"],
+                        }}
+                      />
+                      <span
+                        className="absolute left-0 top-20 h-1 w-full"
+                        style={{
+                          background:
+                            tokens["editorOverviewRuler.deletedBackground"],
+                        }}
+                      />
+                      <span
+                        className="absolute left-0 top-11 h-1 w-full"
+                        style={{
+                          background: tokens["minimapGutter.addedBackground"],
+                        }}
+                      />
+                      <span
+                        className="absolute left-0 top-[68px] h-1 w-full"
+                        style={{
+                          background:
+                            tokens["minimapGutter.modifiedBackground"],
+                        }}
+                      />
+                      <span
+                        className="absolute left-0 top-[92px] h-1 w-full"
+                        style={{
+                          background: tokens["minimapGutter.deletedBackground"],
+                        }}
+                      />
+                      <span
+                        className="absolute left-0 right-0 top-4 h-8"
+                        style={{
+                          background: tokens["scrollbarSlider.background"],
+                        }}
+                      />
+                      <span
+                        className="absolute left-0 right-0 top-14 h-8"
+                        style={{
+                          background: tokens["scrollbarSlider.hoverBackground"],
+                        }}
+                      />
+                      <span
+                        className="absolute left-0 right-0 top-24 h-8"
+                        style={{
+                          background:
+                            tokens["scrollbarSlider.activeBackground"],
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -936,12 +1522,25 @@ export default function Home() {
                 >
                   <div
                     className="flex h-8 items-center gap-4 border-b px-3 text-[11px] uppercase"
-                    style={{ borderColor: tokens["panel.border"] }}
+                    style={{
+                      borderColor: tokens["panel.border"],
+                      background: tokens["panelSectionHeader.background"],
+                    }}
                   >
                     <span
-                      style={{ color: tokens["panelTitle.activeForeground"] }}
+                      className="border-b pb-0.5"
+                      style={{
+                        color: tokens["panelTitle.activeForeground"],
+                        borderColor: tokens["panelTitle.activeBorder"],
+                      }}
                     >
                       Problems
+                    </span>
+                    <span
+                      className="opacity-90"
+                      style={{ color: tokens["panelTitle.activeForeground"] }}
+                    >
+                      Peek
                     </span>
                     <span
                       className="opacity-90"
@@ -956,7 +1555,7 @@ export default function Home() {
                       Terminal
                     </span>
                   </div>
-                  <div className="grid grid-cols-2 gap-4 px-3 py-2 text-[12px]">
+                  <div className="grid grid-cols-1 gap-4 px-3 py-2 text-[12px] md:grid-cols-3">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
                         <span
@@ -973,6 +1572,49 @@ export default function Home() {
                           style={{ color: tokens["editorWarning.foreground"] }}
                         />
                         <span>Unused import: readFile</span>
+                      </div>
+                      <div
+                        className="mt-2 border px-2 py-1"
+                        style={{
+                          background: tokens["peekViewEditor.background"],
+                          borderColor: tokens["panel.border"],
+                        }}
+                      >
+                        <p
+                          className="inline-block px-1"
+                          style={{
+                            background:
+                              tokens["peekViewEditor.matchHighlightBackground"],
+                          }}
+                        >
+                          match token
+                        </p>
+                        <p
+                          className="mt-1"
+                          style={{
+                            color:
+                              tokens["gitDecoration.ignoredResourceForeground"],
+                          }}
+                        >
+                          ignored: .cache/theme.tmp
+                        </p>
+                      </div>
+                      <div
+                        className="px-2 py-1"
+                        style={{
+                          background: tokens["peekViewResult.background"],
+                        }}
+                      >
+                        peek result list
+                      </div>
+                      <div
+                        className="px-2 py-1"
+                        style={{
+                          background:
+                            tokens["diffEditor.insertedTextBackground"],
+                        }}
+                      >
+                        + inserted color mapping
                       </div>
                     </div>
                     <div
@@ -997,6 +1639,115 @@ export default function Home() {
                         error TS2322: Type 'ThemeToken' is not assignable to
                         type 'string'.
                       </p>
+                      <p>
+                        <span style={{ color: tokens["terminal.ansiMagenta"] }}>
+                          magenta
+                        </span>{" "}
+                        <span style={{ color: tokens["terminal.ansiCyan"] }}>
+                          cyan
+                        </span>{" "}
+                        <span style={{ color: tokens["terminal.ansiWhite"] }}>
+                          white
+                        </span>{" "}
+                        <span
+                          style={{ color: tokens["terminal.ansiBrightYellow"] }}
+                        >
+                          bright-yellow
+                        </span>
+                      </p>
+                    </div>
+                    <div
+                      className="space-y-2 border p-2"
+                      style={{
+                        background: tokens["editorWidget.background"],
+                        borderColor: tokens["panelInput.border"],
+                      }}
+                    >
+                      <p style={{ color: tokens["settings.headerForeground"] }}>
+                        Widget Surface
+                      </p>
+                      <div
+                        className="border-l-2 px-2 py-1"
+                        style={{
+                          background: tokens["textBlockQuote.background"],
+                          borderColor: tokens["textBlockQuote.border"],
+                        }}
+                      >
+                        <span
+                          style={{ color: tokens["textPreformat.foreground"] }}
+                        >
+                          --watch
+                        </span>{" "}
+                        <span style={{ color: tokens["textLink.foreground"] }}>
+                          docs link
+                        </span>
+                      </div>
+                      <div
+                        className="border px-2 py-1"
+                        style={{
+                          background: tokens["input.background"],
+                          borderColor: tokens.focusBorder,
+                          color: tokens["input.foreground"],
+                        }}
+                      >
+                        {tokens["input.placeholderForeground"]} placeholder
+                      </div>
+                      <div
+                        className="border px-2 py-1"
+                        style={{
+                          background: tokens["dropdown.background"],
+                          borderColor: tokens["dropdown.border"],
+                        }}
+                      >
+                        Dropdown
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          className="px-2 py-1 text-[11px]"
+                          style={{
+                            background: tokens["button.background"],
+                            color: tokens.foreground,
+                          }}
+                        >
+                          Primary
+                        </button>
+                        <button
+                          type="button"
+                          className="px-2 py-1 text-[11px]"
+                          style={{
+                            background: tokens["button.secondaryBackground"],
+                            color: tokens["button.secondaryForeground"],
+                          }}
+                        >
+                          Secondary
+                        </button>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="h-3 w-3 border"
+                          style={{ borderColor: tokens["checkbox.border"] }}
+                        />
+                        <span
+                          className="px-1 py-0.5"
+                          style={{
+                            background: tokens["actionBar.toggledBackground"],
+                            color: tokens.descriptionForeground,
+                          }}
+                        >
+                          toggled action
+                        </span>
+                      </div>
+                      <p
+                        style={{
+                          background:
+                            tokens["welcomePage.buttonHoverBackground"],
+                          color: tokens.foreground,
+                        }}
+                        className="inline-block px-2 py-0.5"
+                      >
+                        hover preview
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1004,10 +1755,11 @@ export default function Home() {
             </div>
 
             <div
-              className="flex h-6 items-center justify-between px-2 text-[11px]"
+              className="flex h-6 items-center justify-between border-t px-2 text-[11px]"
               style={{
                 background: tokens["statusBar.background"],
                 color: tokens["statusBar.foreground"],
+                borderColor: tokens["statusBar.border"],
               }}
             >
               <div className="flex items-center gap-3">
@@ -1026,8 +1778,33 @@ export default function Home() {
                 <span>1</span>
                 <span className="codicon codicon-warning text-[10px]" />
                 <span>1</span>
+                <span
+                  className="px-1"
+                  style={{
+                    background: tokens["statusBarItem.remoteBackground"],
+                    color: tokens["statusBarItem.remoteForeground"],
+                  }}
+                >
+                  SSH: theme-dev
+                </span>
+                <span
+                  className="px-1"
+                  style={{
+                    background: tokens["statusBar.debuggingBackground"],
+                    color: tokens["statusBar.debuggingForeground"],
+                    border: `1px solid ${tokens["statusBar.debuggingBorder"]}`,
+                  }}
+                >
+                  debug
+                </span>
               </div>
               <div className="flex items-center gap-3">
+                <span
+                  className="px-1"
+                  style={{ background: tokens["statusBar.noFolderBackground"] }}
+                >
+                  no-folder mode
+                </span>
                 <span>TypeScript React</span>
                 <span>UTF-8</span>
                 <span>Ln 11, Col 35</span>
@@ -1043,8 +1820,8 @@ export default function Home() {
             and syntax scopes.
           </p>
           <p className="mb-4 text-xs text-slate-500">
-            {Object.keys(tokens).length} color tokens currently represented in
-            preview + export.
+            {Object.keys(tokens).length} color tokens currently available for
+            customization + export.
           </p>
 
           <div className="space-y-5">
