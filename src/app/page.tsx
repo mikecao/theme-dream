@@ -894,6 +894,46 @@ const codeLines: CodeLine[] = [
   },
 ];
 
+const coverageTokenKeys: TokenKey[] = [
+  "debugToolBar.background",
+  "editor.inactiveSelectionBackground",
+  "editor.selectionHighlightBackground",
+  "editor.selectionHighlightBorder",
+  "editor.wordHighlightStrongBackground",
+  "editorCursor.background",
+  "editorHoverWidget.background",
+  "editorHoverWidget.border",
+  "editorHoverWidget.highlightForeground",
+  "editorIndentGuide.activeBackground1",
+  "editorInlayHint.background",
+  "editorInlayHint.foreground",
+  "editorMarkerNavigation.background",
+  "editorRuler.foreground",
+  "editorSuggestWidget.background",
+  "editorSuggestWidget.border",
+  "editorSuggestWidget.selectedBackground",
+  "multiDiffEditor.headerBackground",
+  "settings.focusedRowBackground",
+  "sideBar.dropBackground",
+  "sideBarSectionHeader.border",
+  "syntax.comment",
+  "terminal.ansiBlack",
+  "terminal.ansiBrightBlack",
+  "terminal.ansiBrightBlue",
+  "terminal.ansiBrightCyan",
+  "terminal.ansiBrightGreen",
+  "terminal.ansiBrightMagenta",
+  "terminal.ansiBrightRed",
+  "terminal.ansiBrightWhite",
+  "terminal.background",
+  "terminal.border",
+  "terminal.foreground",
+  "terminal.selectionBackground",
+  "titleBar.inactiveBackground",
+  "titleBar.inactiveForeground",
+  "walkThrough.embeddedEditorBackground",
+];
+
 const editorFontFamily = "Consolas, 'Courier New', monospace";
 
 const getLineHighlightTokenKey = (line: CodeLine): TokenKey | undefined => {
@@ -977,6 +1017,9 @@ export default function Home() {
     anchor.click();
     URL.revokeObjectURL(url);
   };
+
+  const allTokenCount = Object.keys(tokens).length;
+  const primaryPreviewCoverage = allTokenCount - coverageTokenKeys.length;
 
   const jumpToProperty = (key: TokenKey) => {
     setActiveTokenKey(key);
@@ -1324,258 +1367,264 @@ export default function Home() {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-[56px_1fr]">
-                  <div
-                    className="border-r py-2 pr-2 text-right text-[12px] leading-6"
-                    style={{
-                      borderColor: tokens["editorGroup.border"],
-                      background: tokens["editorGutter.background"],
-                    }}
-                  >
-                    {codeLines.map((line) => (
-                      <div
-                        key={line.number}
-                        className="relative"
-                        style={{
-                          color: line.active
-                            ? tokens["editorLineNumber.activeForeground"]
-                            : tokens["editorLineNumber.foreground"],
-                        }}
-                      >
-                        {line.number === 9 ? (
-                          <span
-                            className="absolute left-0 top-1.5 h-3 w-0.5"
-                            style={{
-                              background:
-                                tokens["editorGutter.addedBackground"],
-                            }}
-                          />
-                        ) : null}
-                        {line.number === 10 ? (
-                          <span
-                            className="absolute left-0 top-1.5 h-3 w-0.5"
-                            style={{
-                              background:
-                                tokens["editorGutter.modifiedBackground"],
-                            }}
-                          />
-                        ) : null}
-                        {line.number === 11 ? (
-                          <span
-                            className="absolute left-0 top-1.5 h-3 w-0.5"
-                            style={{
-                              background:
-                                tokens["editorGutter.deletedBackground"],
-                            }}
-                          />
-                        ) : null}
-                        <p>{line.number}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div
-                    className="relative py-2 pr-2 text-[13px] leading-6"
-                    data-token-key="editor.background"
-                    style={{
-                      fontFamily: editorFontFamily,
-                      background: tokens["editor.background"],
-                    }}
-                  >
-                    <span
-                      className="pointer-events-none absolute bottom-2 left-[32px] top-2 w-px opacity-50"
+                <div className="h-full overflow-y-auto">
+                  <div className="grid min-w-full grid-cols-[56px_1fr]">
+                    <div
+                      className="border-r py-2 pr-2 text-right text-[12px] leading-6"
                       style={{
-                        background: tokens["editorIndentGuide.background1"],
+                        borderColor: tokens["editorGroup.border"],
+                        background: tokens["editorGutter.background"],
                       }}
-                    />
-                    <span
-                      className="pointer-events-none absolute bottom-2 left-[64px] top-2 w-px opacity-30"
-                      style={{
-                        background: tokens["editorIndentGuide.background1"],
-                      }}
-                    />
-
-                    {codeLines.map((line) => (
-                      <div
-                        key={line.number}
-                        className="relative flex h-6 items-center whitespace-pre px-3"
-                        data-token-key={getLineHighlightTokenKey(line)}
-                        style={{
-                          background: line.active
-                            ? tokens["editor.lineHighlightBackground"]
-                            : line.number === 10
-                              ? tokens["editor.findMatchBackground"]
-                              : line.number === 12
-                                ? tokens["editor.findMatchHighlightBackground"]
-                                : line.number === 14
-                                  ? tokens["editor.wordHighlightBackground"]
-                                  : line.number === 15
-                                    ? tokens[
-                                        "editor.wordHighlightStrongBackground"
-                                      ]
-                                    : "transparent",
-                          border:
-                            line.number === 10
-                              ? `1px solid ${tokens["editor.findMatchBorder"]}`
-                              : line.number === 14
-                                ? `1px solid ${tokens["editor.wordHighlightBorder"]}`
-                                : line.number === 15
-                                  ? `1px solid ${tokens["editor.wordHighlightStrongBorder"]}`
-                                  : "none",
-                        }}
-                      >
-                        {line.chunks.map((chunk, index) => (
-                          <span
-                            key={`${line.number}-${index}`}
-                            data-token-key={chunk.key}
-                            style={{
-                              color: chunk.key
-                                ? tokens[chunk.key]
-                                : tokens["editor.foreground"],
-                              background:
-                                chunk.selection === "primary"
-                                  ? tokens["editor.selectionBackground"]
-                                  : chunk.selection === "secondary"
-                                    ? tokens[
-                                        "editor.selectionHighlightBackground"
-                                      ]
-                                    : "transparent",
-                            }}
-                          >
-                            {chunk.text}
-                          </span>
-                        ))}
-                        {line.active ? (
-                          <span
-                            className="ml-0.5 h-4 border-l-2"
-                            style={{
-                              borderColor: tokens["editorCursor.foreground"],
-                            }}
-                          />
-                        ) : null}
-                      </div>
-                    ))}
-
-                    <div className="mt-1 flex items-center gap-1 px-3 text-[11px]">
-                      <span
-                        style={{
-                          color: tokens["editorBracketHighlight.foreground1"],
-                        }}
-                      >
-                        (
-                      </span>
-                      <span
-                        style={{
-                          color: tokens["editorBracketHighlight.foreground2"],
-                        }}
-                      >
-                        [
-                      </span>
-                      <span
-                        style={{
-                          color: tokens["editorBracketHighlight.foreground3"],
-                        }}
-                      >
-                        {"{"}
-                      </span>
-                      <span
-                        className="px-1"
-                        style={{
-                          background: tokens["editorBracketMatch.background"],
-                          border: `1px solid ${tokens["editorBracketMatch.border"]}`,
-                        }}
-                      >
-                        matched pair
-                      </span>
-                      <span
-                        style={{
-                          color: tokens["editorBracketHighlight.foreground3"],
-                        }}
-                      >
-                        {"}"}
-                      </span>
-                      <span
-                        style={{
-                          color: tokens["editorBracketHighlight.foreground2"],
-                        }}
-                      >
-                        ]
-                      </span>
-                      <span
-                        style={{
-                          color: tokens["editorBracketHighlight.foreground1"],
-                        }}
-                      >
-                        )
-                      </span>
+                    >
+                      {codeLines.map((line) => (
+                        <div
+                          key={line.number}
+                          className="relative"
+                          style={{
+                            color: line.active
+                              ? tokens["editorLineNumber.activeForeground"]
+                              : tokens["editorLineNumber.foreground"],
+                          }}
+                        >
+                          {line.number === 9 ? (
+                            <span
+                              className="absolute left-0 top-1.5 h-3 w-0.5"
+                              style={{
+                                background:
+                                  tokens["editorGutter.addedBackground"],
+                              }}
+                            />
+                          ) : null}
+                          {line.number === 10 ? (
+                            <span
+                              className="absolute left-0 top-1.5 h-3 w-0.5"
+                              style={{
+                                background:
+                                  tokens["editorGutter.modifiedBackground"],
+                              }}
+                            />
+                          ) : null}
+                          {line.number === 11 ? (
+                            <span
+                              className="absolute left-0 top-1.5 h-3 w-0.5"
+                              style={{
+                                background:
+                                  tokens["editorGutter.deletedBackground"],
+                              }}
+                            />
+                          ) : null}
+                          <p>{line.number}</p>
+                        </div>
+                      ))}
                     </div>
 
                     <div
-                      className="pointer-events-none absolute bottom-2 right-0.5 top-2 w-2 border-l"
+                      className="relative py-2 pr-2 text-[13px] leading-6"
+                      data-token-key="editor.background"
                       style={{
-                        borderColor: tokens["editorOverviewRuler.border"],
-                        background: tokens["scrollbar.shadow"],
+                        fontFamily: editorFontFamily,
+                        background: tokens["editor.background"],
                       }}
                     >
                       <span
-                        className="absolute left-0 top-8 h-1 w-full"
+                        className="pointer-events-none absolute bottom-2 left-[32px] top-2 w-px opacity-50"
                         style={{
-                          background:
-                            tokens["editorOverviewRuler.addedBackground"],
+                          background: tokens["editorIndentGuide.background1"],
                         }}
                       />
                       <span
-                        className="absolute left-0 top-14 h-1 w-full"
+                        className="pointer-events-none absolute bottom-2 left-[64px] top-2 w-px opacity-30"
                         style={{
-                          background:
-                            tokens["editorOverviewRuler.modifiedBackground"],
+                          background: tokens["editorIndentGuide.background1"],
                         }}
                       />
-                      <span
-                        className="absolute left-0 top-20 h-1 w-full"
+
+                      {codeLines.map((line) => (
+                        <div
+                          key={line.number}
+                          className="relative flex h-6 items-center whitespace-pre px-3"
+                          data-token-key={getLineHighlightTokenKey(line)}
+                          style={{
+                            background: line.active
+                              ? tokens["editor.lineHighlightBackground"]
+                              : line.number === 10
+                                ? tokens["editor.findMatchBackground"]
+                                : line.number === 12
+                                  ? tokens[
+                                      "editor.findMatchHighlightBackground"
+                                    ]
+                                  : line.number === 14
+                                    ? tokens["editor.wordHighlightBackground"]
+                                    : line.number === 15
+                                      ? tokens[
+                                          "editor.wordHighlightStrongBackground"
+                                        ]
+                                      : "transparent",
+                            border:
+                              line.number === 10
+                                ? `1px solid ${tokens["editor.findMatchBorder"]}`
+                                : line.number === 14
+                                  ? `1px solid ${tokens["editor.wordHighlightBorder"]}`
+                                  : line.number === 15
+                                    ? `1px solid ${tokens["editor.wordHighlightStrongBorder"]}`
+                                    : "none",
+                          }}
+                        >
+                          {line.chunks.map((chunk, index) => (
+                            <span
+                              key={`${line.number}-${index}`}
+                              data-token-key={chunk.key}
+                              style={{
+                                color: chunk.key
+                                  ? tokens[chunk.key]
+                                  : tokens["editor.foreground"],
+                                background:
+                                  chunk.selection === "primary"
+                                    ? tokens["editor.selectionBackground"]
+                                    : chunk.selection === "secondary"
+                                      ? tokens[
+                                          "editor.selectionHighlightBackground"
+                                        ]
+                                      : "transparent",
+                              }}
+                            >
+                              {chunk.text}
+                            </span>
+                          ))}
+                          {line.active ? (
+                            <span
+                              className="ml-0.5 h-4 border-l-2"
+                              style={{
+                                borderColor: tokens["editorCursor.foreground"],
+                              }}
+                            />
+                          ) : null}
+                        </div>
+                      ))}
+
+                      <div className="mt-1 flex items-center gap-1 px-3 text-[11px]">
+                        <span
+                          style={{
+                            color: tokens["editorBracketHighlight.foreground1"],
+                          }}
+                        >
+                          (
+                        </span>
+                        <span
+                          style={{
+                            color: tokens["editorBracketHighlight.foreground2"],
+                          }}
+                        >
+                          [
+                        </span>
+                        <span
+                          style={{
+                            color: tokens["editorBracketHighlight.foreground3"],
+                          }}
+                        >
+                          {"{"}
+                        </span>
+                        <span
+                          className="px-1"
+                          style={{
+                            background: tokens["editorBracketMatch.background"],
+                            border: `1px solid ${tokens["editorBracketMatch.border"]}`,
+                          }}
+                        >
+                          matched pair
+                        </span>
+                        <span
+                          style={{
+                            color: tokens["editorBracketHighlight.foreground3"],
+                          }}
+                        >
+                          {"}"}
+                        </span>
+                        <span
+                          style={{
+                            color: tokens["editorBracketHighlight.foreground2"],
+                          }}
+                        >
+                          ]
+                        </span>
+                        <span
+                          style={{
+                            color: tokens["editorBracketHighlight.foreground1"],
+                          }}
+                        >
+                          )
+                        </span>
+                      </div>
+
+                      <div
+                        className="pointer-events-none absolute bottom-2 right-0.5 top-2 w-2 border-l"
                         style={{
-                          background:
-                            tokens["editorOverviewRuler.deletedBackground"],
+                          borderColor: tokens["editorOverviewRuler.border"],
+                          background: tokens["scrollbar.shadow"],
                         }}
-                      />
-                      <span
-                        className="absolute left-0 top-11 h-1 w-full"
-                        style={{
-                          background: tokens["minimapGutter.addedBackground"],
-                        }}
-                      />
-                      <span
-                        className="absolute left-0 top-[68px] h-1 w-full"
-                        style={{
-                          background:
-                            tokens["minimapGutter.modifiedBackground"],
-                        }}
-                      />
-                      <span
-                        className="absolute left-0 top-[92px] h-1 w-full"
-                        style={{
-                          background: tokens["minimapGutter.deletedBackground"],
-                        }}
-                      />
-                      <span
-                        className="absolute left-0 right-0 top-4 h-8"
-                        style={{
-                          background: tokens["scrollbarSlider.background"],
-                        }}
-                      />
-                      <span
-                        className="absolute left-0 right-0 top-14 h-8"
-                        style={{
-                          background: tokens["scrollbarSlider.hoverBackground"],
-                        }}
-                      />
-                      <span
-                        className="absolute left-0 right-0 top-24 h-8"
-                        style={{
-                          background:
-                            tokens["scrollbarSlider.activeBackground"],
-                        }}
-                      />
+                      >
+                        <span
+                          className="absolute left-0 top-8 h-1 w-full"
+                          style={{
+                            background:
+                              tokens["editorOverviewRuler.addedBackground"],
+                          }}
+                        />
+                        <span
+                          className="absolute left-0 top-14 h-1 w-full"
+                          style={{
+                            background:
+                              tokens["editorOverviewRuler.modifiedBackground"],
+                          }}
+                        />
+                        <span
+                          className="absolute left-0 top-20 h-1 w-full"
+                          style={{
+                            background:
+                              tokens["editorOverviewRuler.deletedBackground"],
+                          }}
+                        />
+                        <span
+                          className="absolute left-0 top-11 h-1 w-full"
+                          style={{
+                            background: tokens["minimapGutter.addedBackground"],
+                          }}
+                        />
+                        <span
+                          className="absolute left-0 top-[68px] h-1 w-full"
+                          style={{
+                            background:
+                              tokens["minimapGutter.modifiedBackground"],
+                          }}
+                        />
+                        <span
+                          className="absolute left-0 top-[92px] h-1 w-full"
+                          style={{
+                            background:
+                              tokens["minimapGutter.deletedBackground"],
+                          }}
+                        />
+                        <span
+                          className="absolute left-0 right-0 top-4 h-8"
+                          style={{
+                            background: tokens["scrollbarSlider.background"],
+                          }}
+                        />
+                        <span
+                          className="absolute left-0 right-0 top-14 h-8"
+                          style={{
+                            background:
+                              tokens["scrollbarSlider.hoverBackground"],
+                          }}
+                        />
+                        <span
+                          className="absolute left-0 right-0 top-24 h-8"
+                          style={{
+                            background:
+                              tokens["scrollbarSlider.activeBackground"],
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1816,6 +1865,39 @@ export default function Home() {
                       >
                         hover preview
                       </p>
+
+                      <div
+                        className="border-t pt-2"
+                        style={{ borderColor: tokens["panel.border"] }}
+                      >
+                        <p
+                          className="mb-1 text-[11px] uppercase"
+                          style={{ color: tokens.descriptionForeground }}
+                        >
+                          Coverage
+                        </p>
+                        <div className="max-h-20 space-y-1 overflow-y-auto pr-1">
+                          {coverageTokenKeys.map((key) => (
+                            <div
+                              key={key}
+                              data-token-key={key}
+                              className="flex cursor-pointer items-center gap-2 border px-1.5 py-1 text-[10px]"
+                              style={{
+                                borderColor: tokens["panel.border"],
+                                background:
+                                  tokens["multiDiffEditor.headerBackground"],
+                                color: tokens.foreground,
+                              }}
+                            >
+                              <span
+                                className="h-2 w-2 shrink-0"
+                                style={{ background: tokens[key] }}
+                              />
+                              <span className="truncate">{key}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1876,6 +1958,9 @@ export default function Home() {
                 </span>
                 <span>TypeScript React</span>
                 <span>UTF-8</span>
+                <span>
+                  Main coverage {primaryPreviewCoverage}/{allTokenCount}
+                </span>
                 <span>Ln 11, Col 35</span>
               </div>
             </div>
