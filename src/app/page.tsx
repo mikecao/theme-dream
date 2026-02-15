@@ -896,6 +896,30 @@ const codeLines: CodeLine[] = [
 
 const editorFontFamily = "Consolas, 'Courier New', monospace";
 
+const getLineHighlightTokenKey = (line: CodeLine): TokenKey | undefined => {
+  if (line.active) {
+    return "editor.lineHighlightBackground";
+  }
+
+  if (line.number === 10) {
+    return "editor.findMatchBackground";
+  }
+
+  if (line.number === 12) {
+    return "editor.findMatchHighlightBackground";
+  }
+
+  if (line.number === 14) {
+    return "editor.wordHighlightBackground";
+  }
+
+  if (line.number === 15) {
+    return "editor.wordHighlightStrongBackground";
+  }
+
+  return undefined;
+};
+
 export default function Home() {
   const [themeName, setThemeName] = useState("Dark Modern Remix");
   const [tokens, setTokens] = useState<ThemeTokens>(defaultTokens);
@@ -1375,6 +1399,7 @@ export default function Home() {
                       <div
                         key={line.number}
                         className="relative flex h-6 items-center whitespace-pre px-3"
+                        data-token-key={getLineHighlightTokenKey(line)}
                         style={{
                           background: line.active
                             ? tokens["editor.lineHighlightBackground"]
