@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 const defaultTokens = {
   foreground: "#cccccc",
@@ -211,6 +211,8 @@ type CodeLine = {
   active?: boolean;
   chunks: CodeChunk[];
 };
+
+const isTokenKey = (value: string): value is TokenKey => value in defaultTokens;
 
 const groups: TokenGroup[] = [
   {
@@ -897,6 +899,10 @@ const editorFontFamily = "Consolas, 'Courier New', monospace";
 export default function Home() {
   const [themeName, setThemeName] = useState("Dark Modern Remix");
   const [tokens, setTokens] = useState<ThemeTokens>(defaultTokens);
+  const [activeTokenKey, setActiveTokenKey] = useState<TokenKey | null>(null);
+  const propertyRefs = useRef<
+    Partial<Record<TokenKey, HTMLLabelElement | null>>
+  >({});
 
   const themeJson = useMemo(() => {
     const colorEntries = (Object.keys(tokens) as TokenKey[])
@@ -948,6 +954,26 @@ export default function Home() {
     URL.revokeObjectURL(url);
   };
 
+  const jumpToProperty = (key: TokenKey) => {
+    setActiveTokenKey(key);
+    propertyRefs.current[key]?.scrollIntoView({
+      behavior: "auto",
+      block: "center",
+    });
+  };
+
+  const handlePreviewPointerDown = (event: React.PointerEvent<HTMLElement>) => {
+    const target = event.target as HTMLElement;
+    const tokenElement = target.closest<HTMLElement>("[data-token-key]");
+    const tokenKey = tokenElement?.dataset.tokenKey;
+
+    if (!tokenKey || !isTokenKey(tokenKey)) {
+      return;
+    }
+
+    jumpToProperty(tokenKey);
+  };
+
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900">
       <nav className="sticky top-0 z-20 rounded-sm border-b border-slate-200 bg-white px-4 py-3">
@@ -994,9 +1020,11 @@ export default function Home() {
           <div
             className="overflow-hidden rounded-sm [&_*]:rounded-none"
             style={{ fontFamily: "Segoe WPC, Segoe UI, sans-serif" }}
+            onPointerDownCapture={handlePreviewPointerDown}
           >
             <div
               className="flex h-8 items-center justify-between px-2 text-[11px]"
+              data-token-key="titleBar.activeBackground"
               style={{
                 background: tokens["titleBar.activeBackground"],
                 color: tokens["titleBar.activeForeground"],
@@ -1004,6 +1032,7 @@ export default function Home() {
             >
               <div
                 className="flex items-center gap-2"
+                data-token-key="menu.foreground"
                 style={{ color: tokens["menu.foreground"] }}
               >
                 <span className="inline-block h-2.5 w-2.5 !rounded-full bg-[#ff5f57]" />
@@ -1038,6 +1067,7 @@ export default function Home() {
             <div className="grid min-h-[720px] grid-cols-[48px_270px_1fr]">
               <aside
                 className="flex flex-col items-center"
+                data-token-key="activityBar.background"
                 style={{
                   background: tokens["activityBar.background"],
                   color: tokens["activityBar.foreground"],
@@ -1070,6 +1100,7 @@ export default function Home() {
 
               <aside
                 className="border-r text-[12px]"
+                data-token-key="sideBar.background"
                 style={{
                   background: tokens["sideBar.background"],
                   color: tokens["sideBar.foreground"],
@@ -1187,6 +1218,7 @@ export default function Home() {
 
               <section
                 className="grid grid-rows-[35px_28px_1fr_176px]"
+                data-token-key="editorGroup.background"
                 style={{
                   background: tokens["editorGroup.background"],
                   color: tokens["editor.foreground"],
@@ -1194,6 +1226,7 @@ export default function Home() {
               >
                 <div
                   className="flex border-b"
+                  data-token-key="editorGroupHeader.tabsBackground"
                   style={{
                     borderColor: tokens["editorGroup.border"],
                     background: tokens["editorGroupHeader.tabsBackground"],
@@ -1201,6 +1234,7 @@ export default function Home() {
                 >
                   <div
                     className="flex h-full items-center gap-2 border-r border-t-2 px-3 text-[12px]"
+                    data-token-key="tab.activeBackground"
                     style={{
                       background: tokens["tab.activeBackground"],
                       color: tokens["tab.activeForeground"],
@@ -1214,6 +1248,7 @@ export default function Home() {
                   </div>
                   <div
                     className="flex h-full items-center gap-2 border-r px-3 text-[12px]"
+                    data-token-key="tab.inactiveBackground"
                     style={{
                       background: tokens["tab.inactiveBackground"],
                       color: tokens["tab.inactiveForeground"],
@@ -1225,6 +1260,7 @@ export default function Home() {
                   </div>
                   <div
                     className="flex h-full items-center border-r px-3 text-[12px]"
+                    data-token-key="tab.hoverBackground"
                     style={{
                       background: tokens["tab.hoverBackground"],
                       borderColor: tokens["tab.lastPinnedBorder"],
@@ -1234,6 +1270,7 @@ export default function Home() {
                   </div>
                   <div
                     className="flex h-full items-center px-3 text-[12px]"
+                    data-token-key="tab.unfocusedHoverBackground"
                     style={{
                       background: tokens["tab.unfocusedHoverBackground"],
                     }}
@@ -1315,6 +1352,7 @@ export default function Home() {
 
                   <div
                     className="relative py-2 pr-2 text-[13px] leading-6"
+                    data-token-key="editor.background"
                     style={{
                       fontFamily: editorFontFamily,
                       background: tokens["editor.background"],
@@ -1364,6 +1402,7 @@ export default function Home() {
                         {line.chunks.map((chunk, index) => (
                           <span
                             key={`${line.number}-${index}`}
+                            data-token-key={chunk.key}
                             style={{
                               color: chunk.key
                                 ? tokens[chunk.key]
@@ -1518,6 +1557,7 @@ export default function Home() {
 
                 <div
                   className="overflow-hidden border-t"
+                  data-token-key="panel.background"
                   style={{
                     background: tokens["panel.background"],
                     borderColor: tokens["panel.border"],
@@ -1759,6 +1799,7 @@ export default function Home() {
 
             <div
               className="relative z-10 flex h-6 items-center justify-between border-t px-2 text-[11px]"
+              data-token-key="statusBar.background"
               style={{
                 background: tokens["statusBar.background"],
                 color: tokens["statusBar.foreground"],
@@ -1837,7 +1878,15 @@ export default function Home() {
                   {group.items.map((item) => (
                     <label
                       key={item.key}
-                      className="flex items-center gap-2 rounded-sm px-2 py-2"
+                      ref={(element) => {
+                        propertyRefs.current[item.key] = element;
+                      }}
+                      className={`flex items-center gap-2 rounded-sm px-2 py-2 transition ${
+                        activeTokenKey === item.key
+                          ? "bg-sky-100/80"
+                          : "bg-transparent"
+                      }`}
+                      onPointerDown={() => setActiveTokenKey(item.key)}
                     >
                       <span className="w-40 text-[11px] font-medium text-slate-700">
                         {item.label}
@@ -1856,6 +1905,7 @@ export default function Home() {
                         onChange={(event) =>
                           updateToken(item.key, event.target.value)
                         }
+                        onFocus={() => setActiveTokenKey(item.key)}
                         className="min-w-0 flex-1 rounded-sm border border-slate-300 bg-white px-2 py-1 text-xs font-mono text-slate-700 outline-none ring-blue-500 transition focus:ring-2"
                       />
                     </label>
